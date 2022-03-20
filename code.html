@@ -14,7 +14,7 @@
     <script src="https://kit.fontawesome.com/5db21ba9c6.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/site.css">
 
-    <link rel="icon" type="image/png" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" href="/img/tabicon.png">
     <link rel="stylesheet" href="/css/prism.css">
 
 </head>
@@ -41,10 +41,10 @@
                     <a class="nav-link active" aria-current="page" href="code.html">The Code</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="#">Git Repo</a>
+                    <a class="nav-link" target="_blank" href="https://github.com/Jess-EXE/palindrome-js-app">Git Repo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="#">About</a>
+                    <a class="nav-link" target="_blank" href="https://jesse-chase.netlify.app/">About</a>
                 </li>
             </ul>
         </div>
@@ -60,16 +60,101 @@
         <div class="row row-cols-1 row-cols-lg-2">
             <div class="col col-lg-8">
                 <pre class="line-numbers"><code class="language-javascript">
-                    // Call Hello World
-                    function HelloWorld() {
-                    alert("Hello World!");
-}
+                    // Retrieve user input
+                    // Controller function
+                    function getString() {
+                    
+                        
+                        // Alert box is hidden
+                        document.getElementById("alert").classList.add("invisible");
+                    
+                        // Get user string from page
+                        let userInput = document.getElementById("userString").value;
+                    
+                        if (userInput == "") {
+                            alert("You did not enter a string");
+                        } else {
+                    
+                                // Check for a palindrome
+                        let returnObj = checkForPalindrome(userInput);
+                    
+                        // Display message to user
+                        displayMessage(returnObj);
+                    
+                        }
+                        
+                    }
+                    
+                    // Check if string is a palindrome
+                    function checkForPalindrome(userInput) {
+                    
+                        // Make all letters lowercase
+                        userInput = userInput.toLowerCase();
+                    
+                        // Remove all special characters
+                        let regex = /[^a-z0-9]/gi;
+                        userInput = userInput.replace(regex, "");
+                    
+                        // Reverse the string
+                        let reversedString = [];
+                    
+                        let returnObj = {};
+                    
+                        for (let i = userInput.length - 1; i >=0; i--) {
+                    
+                            reversedString += userInput[i];
+                    
+                        }
+                        
+                        // Add  correct msg and reversed properties to returnObj object
+                        if (reversedString == userInput) {
+                    
+                            returnObj.msg = "Well done, You have entered a palindrome!"
+                    
+                        } else {
+                    
+                            returnObj.msg = "Sorry, you did not enter a palindrome!"
+                    
+                        }
+                    
+                        returnObj.reversed = reversedString;
+                    
+                        return returnObj;
+                    }
+                    
+                    // Display message to user
+                    function displayMessage(returnObj) {
+                    
+                        document.getElementById("result").innerHTML = returnObj.msg;
+                    
+                        document.getElementById("msg").innerHTML = `Your phrase reversed is: ${returnObj.reversed}`;
+                    
+                        document.getElementById("alert").classList.remove("invisible");
+                    
+                    }
                 </code></pre>
             </div>
             <div class="col col-lg-4 mt-2">
-                <p>The code is structured in one function.</p>
-                <h5>Hello World</h5>
-                <p>Hello World is a funciton that displays an alert with the message of "Hello World"</p>
+                <h5>getString()</h5>
+                <p>
+                    This function first ensures that the alert box in the HTML is hidden from the user. Then it assigns the string that was entered
+                    to the variable <i>userInput</i>. I have an if else statement after this that will throw an alert if the user does not enter anything. We then will call
+                    <strong>checkForPalindrome()</strong> with <i>userInput</i> as its argument and assign its returned value to the variable <i>returnObj</i>. 
+                    Lastly, <strong>displayMessage()</strong> is called with <i>returnObj</i> as its argument.
+                </p>
+                <h5>checkForPalindrome()</h5>
+                <p>
+                    First I use <i>.toLowerCase</i> to ensure there are no letter case differences that will throw off the string comparison.
+                    Then I use regex and <i>.replace</i> to remove any special characters or spaces since these don't need to be included in the comparison.
+                    Then I declare an empty array <i>reversedString</i> and an object <i>returnObj</i>. I wanted to use an object here so that I could return
+                    a message and the reversed string. Using a for loop that decrements i, I add each letter from <i>userInput</i> starting from the last index to the 
+                    array <i>reversedString</i>. I then use conditional logic to compare it to <i>userInput</i>. It will add the correct message to <i>returnObj</i> depending
+                    on which condition is met. I also set <i>returnObj.reversed</i> to <i>reversedString</i> so that I can display that as well.
+                    <h5>displayMessage()</h5>
+                    <p>This function is very straightforward. It sets all elements of the alert box in the HTML to the correct values
+                        from <i>returnObj</i>
+                    </p>
+                </p>
             </div>
 
         </div>

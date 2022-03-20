@@ -8,13 +8,19 @@ function getString() {
 
     // Get user string from page
     let userInput = document.getElementById("userString").value;
-    
-    // Check for a palindrome
+
+    if (userInput == "") {
+        alert("You did not enter a string");
+    } else {
+
+            // Check for a palindrome
     let returnObj = checkForPalindrome(userInput);
 
     // Display message to user
     displayMessage(returnObj);
 
+    }
+    
 }
 
 // Check if string is a palindrome
